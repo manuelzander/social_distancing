@@ -6,6 +6,8 @@ import logging
 import os
 import sys
 import traceback
+from datetime import datetime
+import time
 
 import coloredlogs
 import pandas as pd
@@ -28,12 +30,12 @@ coloredlogs.install(level="INFO")
 #     return parser
 
 
-def get_test_data(id):
+def get_test_data(place_id):
     try:
         data = pd.read_json(os.path.join(ROOT_DIR, TEST_DATA_FILE), lines=True)
-        response = data[data["id"] == id].to_json(orient="records", lines=True)
+        response = data[data["id"] == place_id].to_json(orient="records", lines=True)
         logger.info(
-            f"Success reading file {TEST_DATA_FILE} and getting data for id {id}"
+            f"Success reading file {TEST_DATA_FILE} and getting data for id {place_id}"
         )
         return response
     except Exception as e:
@@ -57,22 +59,26 @@ def get_data():
             api_keys = cycle([key.strip() for key in f.readlines()])
 
         with open("place_ids.txt") as f:
-            place_ids = [id.strip() for id in f.readlines()]
+            place_ids = [place_id.strip() for place_id in f.readlines()]
 
-        # responses =  [json.dumps(call_api(next(api_keys), id)) for id in place_ids] # prod
-        responses =  [get_test_data(id) for id in place_ids] # dev
-        
-        # df = pd.DataFrame(responses)
+        responses = []
 
-        # if "current_popularity" in response:
-        # data = []
-        # data["name"] = response["name"]
-        # data["id"] = response["id"]
-        # data["populartimes"][datetime.now().weekday()]["data"][datetime.now().hour] = response["populartimes"][datetime.now().weekday()]["data"][datetime.now().hour]
-        # data["current_popularity"] = response["current_popularity"]
+        for place_id in place_ids:
+            # response = json.loads(call_api(next(api_keys), id)) # prod
+            response = json.loads(get_test_data(place_id)) # dev
+            
+            if "current_popularity" not in response:
+                logger.error(f"Error no current_popularity in data:\n{e}")
+                raise SystemExit
 
+            del response["international_phone_number"]
+            response["timestamp"] = time.time()
+            responses.append(response)
+
+        data = pd.DataFrame(responses)
+        # print(data.head())
         logger.info(f"Success getting data")
-        return True
+        return data
     except Exception as e:
         logger.error(f"Error getting data:\n{e}")
         traceback.print_exc(file=sys.stdout)
