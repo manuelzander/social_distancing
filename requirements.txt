@@ -1,0 +1,4 @@
+Flask
+gunicorn
+pandas
+-e git://github.com/m-wrzr/populartimes.git#egg=populartimes
