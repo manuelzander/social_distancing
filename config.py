@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 coloredlogs.install(level="INFO")
 
 # Global constants
-
 # Folders
 ROOT_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = Path(os.path.join(ROOT_DIR, "data"))
