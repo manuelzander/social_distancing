@@ -1,5 +1,7 @@
 # Added by Manuel
 .idea/
+.vscode/
+api_keys.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
