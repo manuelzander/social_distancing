@@ -1,33 +1,22 @@
 #!/usr/bin/env python
 
-import argparse
 import json
 import logging
 import os
 import sys
-import traceback
-from datetime import datetime
 import time
+import traceback
+from itertools import cycle
 
 import coloredlogs
 import pandas as pd
 import populartimes
 
-from datetime import datetime
-from itertools import cycle
-
-from config import ROOT_DIR, DATA_DIR, TEST_DATA_FILE, API_KEY_FILE, PLACE_ID_FILE
-
+from config import ROOT_DIR, TEST_DATA_FILE, API_KEY_FILE, PLACE_ID_FILE
 
 # Settings
 logger = logging.getLogger(__name__)
 coloredlogs.install(level="INFO")
-
-
-# def create_parser() -> argparse.ArgumentParser():
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("--input_dir", default=DATA_DIR, help="Input directory to use")
-#     return parser
 
 
 def get_test_data(place_id):
@@ -88,7 +77,7 @@ def get_data():
             responses.append(response)
 
         data = pd.DataFrame(responses)
-        # print(data.head())
+        print(data.head())
         logger.info(f"Success getting data")
         return data
     except Exception as e:

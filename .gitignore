@@ -1,6 +1,7 @@
 # Added by Manuel
 .idea/
 .vscode/
+*.db
 api_keys.txt
 
 # Byte-compiled / optimized / DLL files
