@@ -91,10 +91,10 @@ def get_data():
             raise SystemExit
 
         with open(API_KEY_FILE) as f:
-            api_keys = cycle([key.strip() for key in f.readlines()])
+            api_keys = cycle([key.strip() for key in f.readlines() if key.strip()])
 
         with open(PLACE_ID_FILE) as f:
-            place_ids = [place_id.strip().split(",")[0] for place_id in f.readlines()]
+            place_ids = [place_id.strip().split(",")[0] for place_id in f.readlines() if place_id.strip()]
 
         for place_id in place_ids:
             response = json.loads(json.dumps(call_api(next(api_keys), place_id))) # prod
