@@ -103,7 +103,6 @@ def get_data():
             if "current_popularity" in response:
                 response["timestamp"] = time.time()
                 commit_db(response)
-                time.sleep(0.5)
             else:
                 logger.warn(f"No current_popularity in response:\n{response}")
 

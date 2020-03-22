@@ -16,9 +16,9 @@ TEST_DIR = Path(os.path.join(ROOT_DIR, "tests"))
 DB_DIR = os.path.join(ROOT_DIR, "places.db")
 
 # Files
-TEST_DATA_FILE = "test_data.jsonl"
-API_KEY_FILE = "api_keys.txt"
-PLACE_ID_FILE = "place_ids.txt"
+TEST_DATA_FILE = os.path.join(ROOT_DIR, "test_data.jsonl")
+API_KEY_FILE = os.path.join(ROOT_DIR, "api_keys.txt")
+PLACE_ID_FILE = os.path.join(ROOT_DIR, "place_ids.txt")
 
 
 # Environment variables
