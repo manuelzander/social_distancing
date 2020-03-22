@@ -1,15 +1,7 @@
 from sqlalchemy import Column, String, Integer, Float
-from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 
-from config import DB_DIR
-
-# Settings
-engine = create_engine(f"sqlite:///{DB_DIR}")
-Session = sessionmaker(bind=engine)
 Base = declarative_base()
-Base.metadata.create_all(engine)
 
 
 class Place(Base):

@@ -11,13 +11,21 @@ from itertools import cycle
 import coloredlogs
 import pandas as pd
 import populartimes
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from config import ROOT_DIR, TEST_DATA_FILE, API_KEY_FILE, PLACE_ID_FILE
-from db import Place, Session
+from config import ROOT_DIR, TEST_DATA_FILE, API_KEY_FILE, PLACE_ID_FILE, DB_DIR
+from db import Place, Base
 
 # Settings
+# Logs
 logger = logging.getLogger(__name__)
 coloredlogs.install(level="INFO")
+
+# Database
+engine = create_engine(f"sqlite:///{DB_DIR}")
+Session = sessionmaker(bind=engine)
+Base.metadata.create_all(engine)
 
 
 def get_test_data(place_id):
@@ -89,14 +97,13 @@ def get_data():
             place_ids = [place_id.strip().split(",")[0] for place_id in f.readlines()]
 
         for place_id in place_ids:
-            response = json.loads(
-                json.dumps(call_api(next(api_keys), place_id))
-            )  # prod
+            response = json.loads(json.dumps(call_api(next(api_keys), place_id))) # prod
             # response = json.loads(get_test_data(place_id))  # dev
 
             if "current_popularity" in response:
                 response["timestamp"] = time.time()
                 commit_db(response)
+                time.sleep(0.5)
             else:
                 logger.warn(f"No current_popularity in response:\n{response}")
 
