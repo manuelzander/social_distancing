@@ -56,7 +56,7 @@ def call_api(api_key, place_id):
     return populartimes.get_id(api_key, place_id)
 
 
-def commit_db(data):
+def commit_to_db(data):
     try:
         session = Session()
         place = Place(
@@ -72,8 +72,8 @@ def commit_db(data):
         )
         session.add(place)
         session.commit()
-        logger.info(f"Success commiting data:\n{data}")
         session.close()
+        logger.info(f"Success commiting data:\n{data}")
     except Exception as e:
         logger.error(f"Error commiting data:\n{e}")
         traceback.print_exc(file=sys.stdout)
@@ -102,7 +102,7 @@ def get_data():
 
             if "current_popularity" in response:
                 response["timestamp"] = time.time()
-                commit_db(response)
+                commit_to_db(response)
             else:
                 logger.warn(f"No current_popularity in response:\n{response}")
 
