@@ -3,4 +3,5 @@ Flask
 gunicorn
 pandas
 sqlalchemy
+streamlit
 -e git://github.com/m-wrzr/populartimes.git#egg=populartimes
