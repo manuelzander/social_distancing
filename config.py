@@ -6,7 +6,6 @@ import coloredlogs
 
 # Settings
 logger = logging.getLogger(__name__)
-coloredlogs.install(level="INFO")
 
 # Global constants
 # Folders
@@ -19,6 +18,9 @@ DB_DIR = os.path.join(ROOT_DIR, "places.db")
 TEST_DATA_FILE = os.path.join(ROOT_DIR, "test_data.jsonl")
 API_KEY_FILE = os.path.join(ROOT_DIR, "api_keys.txt")
 PLACE_ID_FILE = os.path.join(ROOT_DIR, "place_ids.txt")
+
+# Other
+TABLE_NAME = "places"
 
 
 # Environment variables
