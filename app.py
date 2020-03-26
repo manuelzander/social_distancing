@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 coloredlogs.install(level="INFO")
 
 
+# TO-DO: Implement caching
 def load_data():
     # Get data from database
     data = read_data_from_db()
@@ -34,8 +35,9 @@ def main():
     data = load_data()
     if st.checkbox('Show raw data'):
         st.subheader('Raw data')
-        st.write(data)
+        st.dataframe(data)
         st.success("Successfully loaded data!")
+
 
     st.subheader('Mapping popularity of tube stations')
     midpoint = (np.average(data["latitude"]), np.average(data["longitude"]))
