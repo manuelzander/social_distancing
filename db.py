@@ -1,11 +1,11 @@
 import logging
+import sqlite3
 import sys
 import traceback
 
 import coloredlogs
 import pandas as pd
-import sqlite3
-from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy import Column, Float, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 from config import DB_DIR, TABLE_NAME
