@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-from config import ROOT_DIR, DB_DIR
+from config import DB_DIR, ROOT_DIR
 from db import read_data_from_db
 
 # Settings
@@ -25,21 +25,20 @@ def load_data():
     data = read_data_from_db()
 
     # Convert unix ts into date
-    data["date"] = pd.to_datetime(data['timestamp'], unit='s')
+    data["date"] = pd.to_datetime(data["timestamp"], unit="s")
     return data
 
 
 def main():
-    st.title('Social distancing measures in London')
+    st.title("Social distancing measures in London")
 
     data = load_data()
-    if st.checkbox('Show raw data'):
-        st.subheader('Raw data')
+    if st.checkbox("Show raw data"):
+        st.subheader("Raw data")
         st.dataframe(data)
         st.success("Successfully loaded data!")
 
-
-    st.subheader('Mapping popularity of tube stations')
+    st.subheader("Mapping popularity of tube stations")
     midpoint = (np.average(data["latitude"]), np.average(data["longitude"]))
 
     st.deck_gl_chart(
@@ -62,7 +61,7 @@ def main():
         ],
     )
 
-    if st.checkbox('Like Balloons?'):
+    if st.checkbox("Like Balloons?"):
         st.balloons()
 
 

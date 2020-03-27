@@ -3,6 +3,8 @@
 .vscode/
 *.db
 api_keys.txt
+.DS_Store
+.isort.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

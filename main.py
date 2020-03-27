@@ -14,8 +14,8 @@ import populartimes
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from config import ROOT_DIR, TEST_DATA_FILE, API_KEY_FILE, PLACE_ID_FILE, DB_DIR
-from db import Place, Base
+from config import API_KEY_FILE, DB_DIR, PLACE_ID_FILE, ROOT_DIR, TEST_DATA_FILE
+from db import Base, Place
 
 # Settings
 # Logs
@@ -94,10 +94,16 @@ def get_data():
             api_keys = cycle([key.strip() for key in f.readlines() if key.strip()])
 
         with open(PLACE_ID_FILE) as f:
-            place_ids = [place_id.strip().split(",")[0] for place_id in f.readlines() if place_id.strip()]
+            place_ids = [
+                place_id.strip().split(",")[0]
+                for place_id in f.readlines()
+                if place_id.strip()
+            ]
 
         for place_id in place_ids:
-            response = json.loads(json.dumps(call_api(next(api_keys), place_id))) # prod
+            response = json.loads(
+                json.dumps(call_api(next(api_keys), place_id))
+            )  # prod
             # response = json.loads(get_test_data(place_id))  # dev
 
             if "current_popularity" in response:
