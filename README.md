@@ -1,4 +1,7 @@
 # social_distancing
+
+![last-commit](https://img.shields.io/github/last-commit/manuelzander/social_distancing/master?logo=github&style=for-the-badge) ![issues-pr-raw](https://img.shields.io/github/issues-pr-raw/manuelzander/social_distancing?label=open%20prs&logo=github&style=for-the-badge) ![python](https://img.shields.io/badge/python-3.7-blue?style=for-the-badge&logo=python&logoColor=white) [![license](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
 Social distancing measures using Google Maps Places API for London tube stations.
 
 ## Prerequisites 🔧⚙️
